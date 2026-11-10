@@ -56,11 +56,25 @@
 
           <div class="form-row">
             <div class="input-group">
+              <label>Zona de protección:</label>
+              <select class="qr-qzone">
+                <option value="0">0 (ninguna)</option>
+                <option value="2">2</option>
+                <option value="4" selected>4 (recomendada)</option>
+                <option value="6">6</option>
+                <option value="8">8</option>
+              </select>
+            </div>
+
+            <div class="input-group">
               <label>Elegir color de texto:</label>
               <div class="color-box">
                 <input type="color" class="qr-color" value="#0d0d0d">
               </div>
             </div>
+          </div>
+
+          <div class="form-row">
             <div class="input-group">
               <label>Elegir color de fondo:</label>
               <div class="color-box">
@@ -86,16 +100,6 @@
         <button class="download-btn">Descargar QR</button>
       </div>
     </div>
-
-
-
-
-
-
-
-
-
-
 
     <!-- SECCIÓN 2: DECODIFICADOR -->
     <div class="tab-content" id="decoder-section">
