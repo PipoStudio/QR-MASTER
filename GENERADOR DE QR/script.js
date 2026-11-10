@@ -37,6 +37,7 @@ tabBtns.forEach(btn => {
 const qrInput = wrapper.querySelector(".qr-text"),
       sizeSelect = wrapper.querySelector(".qr-size"),
       formatSelect = wrapper.querySelector(".qr-format"),
+      qzoneSelect = wrapper.querySelector(".qr-qzone"),
       colorInput = wrapper.querySelector(".qr-color"),
       bgcolorInput = wrapper.querySelector(".qr-bgcolor"),
       generateBtn = wrapper.querySelector(".generate-btn"),
@@ -80,10 +81,11 @@ function buildQrUrl() {
   const data = encodeURIComponent(qrInput.value.trim());
   const size = sizeSelect.value;
   const format = formatSelect.value;
+  const qzone = qzoneSelect.value;
   const color = colorInput.value.replace("#", "");
   const bgcolor = bgcolorInput.value.replace("#", "");
 
-  return `https://api.qrserver.com/v1/create-qr-code/?size=${size}&data=${data}&format=${format}&color=${color}&bgcolor=${bgcolor}`;
+  return `https://api.qrserver.com/v1/create-qr-code/?size=${size}&data=${data}&format=${format}&qzone=${qzone}&color=${color}&bgcolor=${bgcolor}`;
 }
 
 function generateFileName() {
@@ -107,7 +109,7 @@ function updateQR() {
     syncStatus.innerText = "Sincronizado";
     syncStatus.classList.remove("updating");
 
-    const currentConfig = `${qrInput.value.trim()}-${sizeSelect.value}-${formatSelect.value}-${colorInput.value}-${bgcolorInput.value}`;
+    const currentConfig = `${qrInput.value.trim()}-${sizeSelect.value}-${formatSelect.value}-${qzoneSelect.value}-${colorInput.value}-${bgcolorInput.value}`;
     if (lastDownloadedConfig !== currentConfig) {
       downloadBtn.innerHTML = "Descargar QR";
       downloadBtn.classList.remove("downloaded");
@@ -161,13 +163,14 @@ colorInput.addEventListener("input", () => { updateQR(); checkColorContrast(); }
 bgcolorInput.addEventListener("input", () => { updateQR(); checkColorContrast(); });
 sizeSelect.addEventListener("change", updateQR);
 formatSelect.addEventListener("change", updateQR);
+qzoneSelect.addEventListener("change", updateQR);
 
 downloadBtn.addEventListener("click", async () => {
   const val = qrInput.value.trim();
   if (!val) return;
 
   const url = buildQrUrl();
-  const currentConfig = `${val}-${sizeSelect.value}-${formatSelect.value}-${colorInput.value}-${bgcolorInput.value}`;
+  const currentConfig = `${val}-${sizeSelect.value}-${formatSelect.value}-${qzoneSelect.value}-${colorInput.value}-${bgcolorInput.value}`;
 
   downloadBtn.innerHTML = `<span class="spinner"></span> Descargando...`;
   downloadBtn.disabled = true;
@@ -218,8 +221,6 @@ downloadBtn.addEventListener("click", async () => {
     downloadBtn.disabled = false;
   }
 });
-
-
 
 
 
